@@ -3,7 +3,6 @@ import ParticlesBackground from './components/ParticlesBackground'
 import { prisma } from './lib/prisma'
 import Link from 'next/link'
 
-// 1. Types to keep the editor happy and error-free
 type Project = {
   id: string;
   title: string;
@@ -13,7 +12,6 @@ type Project = {
 }
 
 export default async function Home() {
-  // 2. Fetching data from your Supabase via Prisma
   let projects: Project[] = [];
   try {
     const data = await prisma.project.findMany({
@@ -27,11 +25,9 @@ export default async function Home() {
   return (
     <main className="relative min-h-screen bg-[#050505] text-white overflow-x-hidden selection:bg-emerald-500 selection:text-black">
       
-      {/* 3. YOUR EXISTING COMPONENTS */}
       <ParticlesBackground />
       <Navbar />
 
-      {/* 4. HERO SECTION - EXACT NETLIFY LAYOUT */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 pt-20">
         <div className="mb-10 px-4 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[10px] font-bold tracking-[0.3em] uppercase animate-pulse">
           Available for Bookings 2026
@@ -56,14 +52,17 @@ export default async function Home() {
           "Transforming <span className="text-white">raw footage</span> into <span className="text-emerald-500">high-octane</span> cinematic experiences."
         </p>
 
-        <div className="mt-12">
-          <a href="#work" className="h-16 px-14 rounded-full bg-emerald-500 text-black flex items-center justify-center font-black text-xs uppercase tracking-[0.3em] hover:bg-emerald-400 hover:scale-105 transition-all shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-            Enter The Archive
+        <div className="mt-12 flex flex-col sm:flex-row items-center gap-6">
+          <a href="#work" className="h-16 px-12 rounded-full bg-emerald-500 text-black flex items-center justify-center font-black text-[10px] uppercase tracking-[0.3em] hover:bg-emerald-400 hover:scale-105 transition-all shadow-[0_0_30px_rgba(16,185,129,0.2)] active:scale-95">
+            View Work
           </a>
+
+          <Link href="/contact" className="h-16 px-12 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-500 flex items-center justify-center font-black text-[10px] uppercase tracking-[0.3em] hover:bg-emerald-500/10 hover:border-emerald-500/50 transition-all active:scale-95">
+            Contacts
+          </Link>
         </div>
       </section>
 
-      {/* 5. WORK GRID - EXACT NETLIFY STYLE */}
       <section id="work" className="max-w-7xl mx-auto px-6 py-32">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-24 gap-6">
           <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase">Selected Works</h2>
@@ -77,8 +76,6 @@ export default async function Home() {
             projects.map((project, index) => (
               <div key={project.id} className="group relative flex flex-col">
                 <div className="relative aspect-video bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-white/5 group-hover:border-emerald-500/40 transition-all duration-700">
-                  
-                  {/* Image with Grayscale Logic */}
                   <div className="absolute inset-0 z-0">
                     {project.thumbnail ? (
                       <img 
@@ -91,7 +88,6 @@ export default async function Home() {
                     )}
                   </div>
 
-                  {/* Play Button Overlay */}
                   <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
                     <a 
                       href={project.videoUrl} 
@@ -109,7 +105,6 @@ export default async function Home() {
                   </div>
                 </div>
 
-                {/* Typography below video */}
                 <div className="mt-10 flex justify-between items-start px-2">
                   <h3 className="text-4xl font-black uppercase tracking-tighter group-hover:text-emerald-500 transition-colors duration-500">
                     {project.title}
@@ -130,7 +125,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 6. FOOTER */}
       <footer className="py-24 border-t border-white/5 text-center px-6">
         <div className="text-emerald-500 font-black text-4xl mb-12 tracking-tighter italic">VP.</div>
         <p className="text-zinc-600 text-[10px] tracking-[0.6em] uppercase leading-loose">
